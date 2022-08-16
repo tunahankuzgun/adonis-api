@@ -9,6 +9,12 @@ export default class Post extends BaseModel {
   public title: string;
 
   @column()
+  public name: string;
+
+  @column()
+  public content: string;
+
+  @column()
   public description: string;
 
   @column()

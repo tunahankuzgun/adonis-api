@@ -15,11 +15,13 @@ export default class PostsController {
   public async store({ request, response }: HttpContextContract) {
     try {
       const title = request.input('title', '');
+      const name = request.input('name', '');
       const description = request.input('description', '');
+      const content = request.input('content', '');
       const image = request.input('image', '');
 
       const post = new Post();
-      post.merge({ title, description, image });
+      post.merge({ title, name, description, content, image });
       await post.save();
 
       return response.ok(post.toJSON());
@@ -48,11 +50,13 @@ export default class PostsController {
 
       const {
         title = post.title,
+        name = post.name,
         description = post.description,
+        content = post.content,
         image = post.image,
-      } = request.only(['title', 'description', 'image']);
+      } = request.only(['title', 'description', 'name', 'content', 'image']);
 
-      post.merge({ title, description, image });
+      post.merge({ title, name, description, content, image });
       await post.save();
 
       return response.ok(post.toJSON());
